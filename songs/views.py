@@ -18,7 +18,7 @@ def songs_list(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def song_detail(request, pk):
     song = get_object_or_404(Song, pk=pk)
     if request.method =='GET':
@@ -30,7 +30,6 @@ def song_detail(request, pk):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
-
     #The below is the original code
     # try:
     #     song = Song.objects.get(pk=pk)
@@ -38,4 +37,8 @@ def song_detail(request, pk):
     #     return Response(serializer.data)
     # except Song.DoesNotExist:
     #     return Response(status=status.HTTP_404_NOT_FOUND)
+    elif request.method == 'DELETE':
+        song.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
         
