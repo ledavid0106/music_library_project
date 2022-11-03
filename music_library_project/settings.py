@@ -122,3 +122,5 @@ try:
     from music_library_project.local_settings import *
 except ImportError:
     raise ImportError("local settings not found")
+
+CORS_ORIGIN_ALLOW_ALL=True
